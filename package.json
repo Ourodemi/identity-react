@@ -3,7 +3,20 @@
   "description": "React JS SDK for Ourodemi Identity",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "start": ""
+  },
   "dependencies": {
+    "axios": "^0.27.2",
     "react": "^18.2.0"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "homepage": "https://github.com/Ourodemi/identity-react",
+  "author": "Ourodemi",
+  "devDependencies": {
+    "react-router": "^6.3.0"
   }
 }
