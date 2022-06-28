@@ -1,4 +1,10 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import React, { 
+    createContext, 
+    useEffect, 
+    useReducer, 
+    useState 
+} from "react";
+
 import useReactPath from "./useReactPath";
 import identityReducer, { initialIdentityState } from "./identityReducer";
 import OurodemiIdentity from './Identity';
@@ -39,7 +45,7 @@ export const IdentityProvider = ({
                     payload: user
                 })
             }
-        })
+        });
     }, [isAuthenticated])
 
     /* Route Guard */
@@ -60,9 +66,11 @@ export const IdentityProvider = ({
         }
     }, [path, disableRouteGuard, isAuthenticated]);
 
+   return (
     <IdentityContext.Provider value={{ ...state, isAuthenticated, IdentityAPI, refreshIdentity }}>
         {children}
     </IdentityContext.Provider>
+   );
 }
 
 export default IdentityContext;

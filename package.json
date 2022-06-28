@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "start": ""
+    "start": "react-scripts start"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -17,6 +17,14 @@
   "homepage": "https://github.com/Ourodemi/identity-react",
   "author": "Ourodemi",
   "devDependencies": {
-    "react-router": "^6.3.0"
-  }
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^2.1.3"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

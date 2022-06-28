@@ -1,11 +1,11 @@
-import IdentityContext, { IdentityProvider } from './IdentityContext';
-import OurodemiIdentity from './Identity';
-import useIdentity from './useIdentity';
+import React from "react";
+import App from "./App";
+import ReactDOM from "react-dom/client";
 
-export {
-    OurodemiIdentity,
-    IdentityProvider,
-    IdentityContext
-}
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
 
-export default useIdentity;
+root.render(
+    <App />
+)
