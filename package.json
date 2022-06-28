@@ -1,8 +1,11 @@
 {
   "name": "@ourodemi/identity-react",
   "description": "React JS SDK for Ourodemi Identity",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "babel src/package -d dist",
     "start": "react-scripts start"
@@ -12,7 +15,8 @@
     "react": "^18.2.0"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "index.js"
   ],
   "homepage": "https://github.com/Ourodemi/identity-react",
   "author": "Ourodemi",

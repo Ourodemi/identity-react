@@ -5,10 +5,10 @@ import { IdentityProvider } from "./package";
 import {
     BrowserRouter,
     Routes,
-    Route,
+    Route
 } from "react-router-dom";
 
-import Guarded from './tests/Guarded';
+import Guard from './tests/Guard';
 import Login from './tests/Login';
 import Public from './tests/Public';
 
@@ -16,18 +16,29 @@ function App(){
 
     return (
         <IdentityProvider 
-            url="test-identity.ourodemi.com"
+            url="identity.ourodemi.com"
+            apiConfig={{
+                url: "https://mock-delivery-api.herokuapp.com",
+                headers: { access_token: 'Authorization' },
+                defaultHeaders: {
+                    Accept: "application/json"
+                }
+            }}
             defaultRouteState={{ auth: false }}
-            route={[
-                { path: "/login" },
+            defaultRoute='/'
+            // navigate={(path) => navigate(path, { replace: true })}
+            routes={[
+                { path: "/login", },
                 { path: "/guard", auth: true }
             ]}
+            disableRouteGuard
+            disableAuth
         >
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Public />}>
+                    <Route path="/">
                         <Route index element={<Public />} />
-                        <Route path="guarded" element={<Guarded />} />
+                        <Route path="guard" element={<Guard />} />
                         <Route path="login" element={<Login />} />
                     </Route>
                 </Routes>
