@@ -15,11 +15,13 @@ const useReactPath = () => {
       };
     }, []);
     
-    if ( path.endsWith('/') ){
-        return path.slice(0, path.length - 1);
+    // prevent a trailing slash loop hole
+    let tmp = path;
+    while ( tmp.endsWith('/') ){
+      tmp = tmp.slice(0, tmp.length - 1);
     }
 
-    return path;
+    return tmp;
 };
 
 export default useReactPath;

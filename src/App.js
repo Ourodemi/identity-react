@@ -1,6 +1,7 @@
 import React from "react";
 
 import { IdentityProvider } from "./package";
+import RouteGuard from "./package/RouteGuard";
 
 import {
     BrowserRouter,
@@ -11,6 +12,7 @@ import {
 import Guard from './tests/Guard';
 import Login from './tests/Login';
 import Public from './tests/Public';
+
 
 function App(){
 
@@ -26,20 +28,44 @@ function App(){
             }}
             defaultRouteState={{ auth: false }}
             defaultRoute='/'
+            defaultAuthenticatedRoute='/dashboard'
             // navigate={(path) => navigate(path, { replace: true })}
-            routes={[
-                { path: "/login", },
-                { path: "/guard", auth: true }
-            ]}
-            disableRouteGuard
+            routes={{
+                '/login': {},
+                '/guard': { auth: true },
+                '/guard/order': { auth: false },
+                '/guard/order/pickles': { auth: false }
+            }}
+            // disableRouteGuard
             disableAuth
         >
             <BrowserRouter>
                 <Routes>
                     <Route path="/">
                         <Route index element={<Public />} />
-                        <Route path="guard" element={<Guard />} />
-                        <Route path="login" element={<Login />} />
+                        
+                        <Route 
+                            path="login" 
+                            element={<Login />} 
+                        />
+
+                        <Route 
+                            path="mexico" 
+                            element={
+                                <RouteGuard>
+                                    <Guard />
+                                </RouteGuard>
+                            } 
+                        />
+
+                        <Route 
+                            path="guard" 
+                            element={
+                                <RouteGuard disabled>
+                                    <Guard />
+                                </RouteGuard>
+                            } 
+                        />
                     </Route>
                 </Routes>
             </BrowserRouter>

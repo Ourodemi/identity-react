@@ -1,5 +1,6 @@
 import IdentityContext, { IdentityProvider } from './IdentityContext';
 import OurodemiIdentity from './Identity';
 import useIdentity from './useIdentity';
-export { OurodemiIdentity, IdentityProvider, IdentityContext };
+import RouteGuard from './RouteGuard';
+export { OurodemiIdentity, IdentityProvider, IdentityContext, RouteGuard };
 export default useIdentity;

@@ -17,14 +17,19 @@ export const IdentityProvider = ({
   },
   navigate,
   // use custom navigation e.g. React Router
-  routes = [],
+  routes = {},
   defaultRoute,
+  defaultAuthenticatedRoute,
   defaultRouteState = {
     auth: false
   },
-  disableRouteGuard = true,
+  disableRouteGuard = false,
+  // to be removed
+  enableRouteGuard = false,
+  enableLoader = false,
   disableAuth = false,
-  children
+  children,
+  LoaderComponent
 }) => {
   const [state, dispatch] = useReducer(identityReducer, initialIdentityState);
   const IdentityAPI = new OurodemiIdentity(url);
@@ -52,22 +57,40 @@ export const IdentityProvider = ({
   }, [isAuthenticated]);
   /* Route Guard */
 
+  /* Disabled for now, use separate RouteGuard component*/
+
   useEffect(() => {
-    if (disableRouteGuard || !defaultRoute) {
+    return;
+
+    if ((disableRouteGuard || !defaultRoute) && !enableRouteGuard) {
       return;
     }
 
-    let route = routes.filter((v, i) => v.path === path);
-    route = route.length < 1 ? defaultRouteState : route[0];
+    if (!enableRouteGuard) {
+      return;
+    }
+
+    let route = routes[path];
+
+    if (!route) {
+      let k = Object.keys(routes).filter((key, i) => {
+        return key === path.substring(0, key.length);
+      });
+      route = k.length < 1 ? defaultRouteState : routes[k[0]];
+    }
 
     if (isAuthenticated === false && route.auth) {
-      if (navigate) {
-        navigate(defaultRoute);
-      } else {
-        window.location.href = defaultRoute;
-      }
+      navigateToDefault();
     }
-  }, [path, disableRouteGuard, isAuthenticated]);
+  }, [path, disableRouteGuard, isAuthenticated]); // navigates to the default route
+
+  const navigateToDefault = (auth = false) => {
+    if (navigate) {
+      navigate(auth ? defaultAuthenticatedRoute : defaultRoute);
+    } else {
+      window.location.href = auth ? defaultAuthenticatedRoute : defaultRoute;
+    }
+  };
 
   const login = async (id, password) => {};
 
@@ -119,10 +142,14 @@ export const IdentityProvider = ({
     value: { ...state,
       isAuthenticated,
       IdentityAPI,
+      navigateToDefault,
       refreshIdentity,
       logout,
       login,
-      api
+      api,
+      LoaderComponent,
+      enableLoader,
+      disableRouteGuard
     }
   }, children);
 };
