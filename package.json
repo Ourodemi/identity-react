@@ -1,7 +1,7 @@
 {
   "name": "@ourodemi/identity-react",
   "description": "React JS SDK for Ourodemi Identity",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "index.js",
   "publishConfig": {
     "access": "public"

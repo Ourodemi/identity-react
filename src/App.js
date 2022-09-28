@@ -28,7 +28,7 @@ function App(){
             }}
             defaultRouteState={{ auth: false }}
             defaultRoute='/'
-            defaultAuthenticatedRoute='/dashboard'
+            defaultAuthenticatedRoute='/'
             // navigate={(path) => navigate(path, { replace: true })}
             routes={{
                 '/login': {},
@@ -37,16 +37,20 @@ function App(){
                 '/guard/order/pickles': { auth: false }
             }}
             // disableRouteGuard
-            disableAuth
+            // disableAuth
         >
             <BrowserRouter>
                 <Routes>
                     <Route path="/">
                         <Route index element={<Public />} />
-                        
+
                         <Route 
                             path="login" 
-                            element={<Login />} 
+                            element={
+                                <RouteGuard reverse>
+                                    <Login />
+                                </RouteGuard>
+                            } 
                         />
 
                         <Route 

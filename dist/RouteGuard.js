@@ -27,7 +27,7 @@ const RouteGuard = ({
     }
   }
 
-  if (reverse) {
+  if (isAuthenticated && reverse) {
     navigateToDefault(true);
     return /*#__PURE__*/React.createElement(React.Fragment, null);
   }

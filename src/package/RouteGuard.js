@@ -30,7 +30,7 @@ const RouteGuard = ({
         }
     }
 
-    if ( reverse ){
+    if ( isAuthenticated && reverse ){
         navigateToDefault(true);
         return <></>;
     }
