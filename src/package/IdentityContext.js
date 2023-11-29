@@ -101,6 +101,20 @@ export const IdentityProvider = ({
         }
     }
 
+    /**
+     * Override and/or set the currenty identity manually. This will set the authenticated
+     * state to true.
+     * @param identity - user object, access token, refresh token, and expiry times
+     */
+    const setIdentity = ({ access_token, refresh_token, user, access_token_expiry, refresh_token_expiry }) => {
+        IdentityAPI.clearLocalIdentity();
+        IdentityAPI.updateLocalIdentity({ 
+            access_token, refresh_token, user, 
+            access_token_expiry, refresh_token_expiry 
+        });
+        setAuthenticated(true);
+    };
+
     const login = async (id, password) => {
         
     }
@@ -151,6 +165,7 @@ export const IdentityProvider = ({
             logout, 
             login,
             api,
+            setIdentity,
             LoaderComponent,
             enableLoader,
             disableRouteGuard
