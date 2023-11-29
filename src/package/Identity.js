@@ -258,7 +258,7 @@ class Identity {
         });
     }
 
-    async createRegistrationToken(user, captcha, captcha_token) {
+    async createRegistrationToken(user, { captcha, captcha_token, captcha_type }) {
         return new Promise(async (resolve, reject) => {
             await axios.post(this.uri('user'), user, {
                 headers: {

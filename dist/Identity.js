@@ -365,17 +365,25 @@ class Identity {
   async requestResetCode({
     email,
     captcha_token,
-    captcha
+    captcha,
+    captcha_type
   }) {
     return new Promise(async (resolve, reject) => {
+      let headers = {
+        'x-captcha-token': captcha_token
+      };
+
+      if (captcha_type) {
+        headers['x-captcha-type'] = captcha_type;
+      } else {
+        headers['x-captcha-string'] = captcha;
+      }
+
       await axios.get(this.uri('reset'), {
         params: {
           email
         },
-        headers: {
-          'x-captcha-token': captcha_token,
-          'x-captcha-string': captcha
-        }
+        headers
       }).then(({
         data
       }) => resolve(this.expandResponse(data))).catch(({
